@@ -1,0 +1,63 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.riftraff.MainActivity"
+    tools:ignore="MergeRootFrame" >
+
+    <RelativeLayout
+        android:id="@+id/activityView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <TextView
+            android:id="@+id/accelView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="29dp"
+            android:layout_marginTop="34dp"
+            android:text="Acceleration:" />
+
+        <TextView
+            android:id="@+id/orientView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/accelView"
+            android:layout_below="@+id/accelView"
+            android:layout_marginTop="126dp"
+            android:text="Orientation:" />
+
+        <TextView
+            android:id="@+id/zView01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/accelView"
+            android:layout_below="@+id/accelView"
+            android:layout_marginLeft="56dp"
+            android:layout_marginTop="14dp"
+            android:text="x:" />
+
+        <TextView
+            android:id="@+id/yView01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/zView01"
+            android:layout_below="@+id/zView01"
+            android:layout_marginTop="15dp"
+            android:text="y:" />
+
+        <TextView
+            android:id="@+id/zView01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/yView01"
+            android:layout_below="@+id/yView01"
+            android:layout_marginTop="23dp"
+            android:text="z:" />
+
+    </RelativeLayout>
+
+</FrameLayout>
