@@ -15,18 +15,18 @@ public class ServerScript : MonoBehaviour
 	private Thread mThread;
 	private TcpListener tcp_Listener = null;
 	private List<Client> arrReader;
-
-	public float xpos, ypos, zpos, xrot = 10.0f, yrot, zrot;
+	public Position p;
 
 	private string outStr = "NOT CONNECTED";
 	
 	void OnGUI()
 	{
-		GUI.Label (new Rect (10, 10, 200, 20), outStr);
+		GUI.Label (new Rect (10, 10, 200, 20), ("TEST" + outStr));
 	}
 
 	void Start()
 	{
+		p = new Position ();
 		this.onReceiveMessage = onReceiveMessageHandler;
 		running = true;
 		arrReader = new List<Client>();
@@ -38,7 +38,7 @@ public class ServerScript : MonoBehaviour
 	void onReceiveMessageHandler(string message)
 	{
 		outStr = message;
-		Debug.Log (message);
+		p.parseMessage (message);
 	}
 	
 	void ClientCheck()
@@ -64,8 +64,7 @@ public class ServerScript : MonoBehaviour
 			tcp_Listener.Stop();
 		}
 	}
-	
-	
+
 	public void StopListening()
 	{
 		running = false;
@@ -96,7 +95,6 @@ public class Client
 	{
 		while(running)
 		{
-			Debug.Log("READING");
 			string cmsg = streamReader.ReadLine();
 			Debug.Log(cmsg);
 			onReceiveMessage(cmsg);

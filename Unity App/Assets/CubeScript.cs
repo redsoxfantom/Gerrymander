@@ -14,9 +14,9 @@ public class CubeScript : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		float xrot = server.xrot;
-		float yrot = server.yrot;
-		float zrot = server.zrot;
+		float xrot = server.p.rotations [0];
+		float yrot = server.p.rotations [1];
+		float zrot = server.p.rotations [2];
 
 		transform.localEulerAngles = new Vector3 (xrot,yrot,zrot);
 	}
