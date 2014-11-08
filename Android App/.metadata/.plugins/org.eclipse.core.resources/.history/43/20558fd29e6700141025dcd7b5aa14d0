@@ -127,7 +127,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 	@Override
 	public void onSensorChanged(SensorEvent event) {
 		synchronized (this) {
-			//if (isDamp(event)) {
+			if (isDamp(event)) {
 				switch (event.sensor.getType()) {
 				case Sensor.TYPE_ACCELEROMETER:
 					/*
@@ -146,7 +146,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 					break;
 
 				}
-			//}
+			}
 		}
 
 	}
