@@ -132,10 +132,9 @@ public class MainActivity extends Activity implements SensorEventListener {
 		if ((event.values[0] > val) || (event.values[1] > val) || (event.values[2] > val)) {
 			res=true;
 		}
-				
+		
+		
 		return res;
 	}
-	
-	
 
 }
