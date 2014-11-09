@@ -1,4 +1,0 @@
-INDEX VERSION 1.126+/Users/peterrokowski/Documents/workspace/Gerrymander/Android App/.metadata/.plugins/org.eclipse.jdt.core
-3737679732.index
-2332603086.index
-3757334635.index
