@@ -22,15 +22,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.os.Build;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 
 public class MainActivity extends Activity implements SensorEventListener {
 
 	private Socket socket;
 
 	private static final int SERVERPORT = 12102;
-	private static final String SERVER_IP = "10.0.0.9";
+	private static String serverIP = "10.0.0.9";
 
 	final float alpha = 0.03f; // User configurable
 
@@ -39,7 +43,13 @@ public class MainActivity extends Activity implements SensorEventListener {
 	public long lastTime = 0;
 	public double[] velocity = new double[3];
 	public double[] position = new double[3];
+	
+	private Switch serverSwitch;
+	private EditText ipAddress;
 
+	Thread globalThread;
+	boolean running =false;
+	
 	// for accelerometer values
 	TextView outputX;
 	TextView outputY;
@@ -50,11 +60,13 @@ public class MainActivity extends Activity implements SensorEventListener {
 	TextView outputY2;
 	TextView outputZ2;
 
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 		setContentView(R.layout.activity_main);
+
 		// just some textviews, for data output
 		outputX = (TextView) findViewById(R.id.xBox01);
 		outputY = (TextView) findViewById(R.id.yBox01);
@@ -64,7 +76,39 @@ public class MainActivity extends Activity implements SensorEventListener {
 		outputY2 = (TextView) findViewById(R.id.yBox02);
 		outputZ2 = (TextView) findViewById(R.id.zBox02);
 
-		new Thread(new ClientThread()).start();
+		ipAddress = (EditText) findViewById(R.id.addressSpace);
+		
+		serverSwitch = (Switch) findViewById(R.id.switchState);
+		
+		//check the current state before we display the screen
+    	
+    	
+		serverSwitch.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+		
+			   @Override
+			   public void onCheckedChanged(CompoundButton buttonView,
+			     boolean isChecked) {
+			 
+			    if(isChecked){
+			    	outputX.setText("Checked!");
+			    	serverIP = ipAddress.getText().toString();
+			    	running = true;
+			    	if(globalThread==null) {
+			        	globalThread = new Thread(new ClientThread());
+			    	}
+			    	globalThread.start();
+			    // switchStatus.setText("Switch is currently ON");
+			    }else{
+			    	outputX.setText("unChecked!");
+			    	running =false;
+			    	globalThread = null;
+			    // switchStatus.setText("Switch is currently OFF");
+			    }
+			 
+			   }
+			  });
+			
+			
 	}
 
 	@Override
@@ -93,7 +137,6 @@ public class MainActivity extends Activity implements SensorEventListener {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
@@ -144,7 +187,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 			case Sensor.TYPE_LINEAR_ACCELERATION:
 				position = getPos(data);
 				if (damp(position)) {
-					outputX.setText(Double.toString(position[0]));
+					//outputX.setText(Double.toString(position[0]));
 					outputY.setText(Double.toString(position[1]));
 					outputZ.setText(Double.toString(position[2]));
 					 composeMessage(data, "ACCEL");
@@ -218,17 +261,19 @@ public class MainActivity extends Activity implements SensorEventListener {
 		@Override
 		public void run() {
 			try {
-				InetAddress serverAddr = InetAddress.getByName(SERVER_IP);
+				InetAddress serverAddr = InetAddress.getByName(serverIP);
 				socket = new Socket(serverAddr, SERVERPORT);
-
-			} catch (UnknownHostException e1) {
-				e1.printStackTrace();
-			} catch (IOException e1) {
-				e1.printStackTrace();
+				while(running) {
+					
+				}
+			} 
+			catch (Exception e) {} 
+			try {
+				socket.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-
 		}
-
 	}
-
 }
