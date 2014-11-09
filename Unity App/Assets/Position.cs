@@ -25,7 +25,7 @@
 
 		if(keyVal[0].Equals("ACCEL"))
 		{
-			//Finish later
+			accelerations = newVals;
 		}
 		else if(keyVal[0].Equals("ROT"))
 		{

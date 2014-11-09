@@ -4,6 +4,8 @@ using System.Collections;
 public class CubeScript : MonoBehaviour 
 {
 	public ServerScript server;
+	public Vector3 rotationDamp;
+	public Vector3 translationDamp;
 
 	// Use this for initialization
 	void Start () 
@@ -22,8 +24,8 @@ public class CubeScript : MonoBehaviour
 		float ypos = server.p.accelerations [1];
 		float zpos = server.p.accelerations [2];
 
-		transform.localEulerAngles = new Vector3 (xrot,yrot,zrot);
+		transform.localEulerAngles = Vector3.Scale(new Vector3 (xrot,yrot,zrot),rotationDamp);
 
-		transform.localPosition = new Vector3 (xpos, ypos, zpos);
+		transform.localPosition = Vector3.Scale(new Vector3 (xpos, ypos, zpos), translationDamp);
 	}
 }

@@ -80,7 +80,6 @@ public class ServerScript : MonoBehaviour
 
 	void StopListening()
 	{
-		Debug.Log ("StopListening");
 		foreach(Client c in arrReader)
 		{
 			Debug.Log("CLOSING CLIENT "+c);
