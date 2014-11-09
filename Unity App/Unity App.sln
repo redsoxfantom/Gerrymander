@@ -1,8 +1,9 @@
-<<<<<<< HEAD
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2008
 
 Project("{11627652-AF6B-C11A-EFE6-8E29547110CC}") = "Unity App", "Assembly-CSharp.csproj", "{1B48C178-8603-8B63-DB04-6A75EE4959E8}"
+EndProject
+Project("{11627652-AF6B-C11A-EFE6-8E29547110CC}") = "Unity App", "Assembly-CSharp-Editor.csproj", "{04A875CA-6569-3EF2-1EB4-61C0495C39C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -14,9 +15,49 @@ Global
 		{1B48C178-8603-8B63-DB04-6A75EE4959E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B48C178-8603-8B63-DB04-6A75EE4959E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B48C178-8603-8B63-DB04-6A75EE4959E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04A875CA-6569-3EF2-1EB4-61C0495C39C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04A875CA-6569-3EF2-1EB4-61C0495C39C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04A875CA-6569-3EF2-1EB4-61C0495C39C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04A875CA-6569-3EF2-1EB4-61C0495C39C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+																																																																						GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+		Policies = $0
+		$0.TextStylePolicy = $1
+		$1.inheritsSet = null
+		$1.scope = text/x-csharp
+		$0.CSharpFormattingPolicy = $2
+		$2.inheritsSet = Mono
+		$2.inheritsScope = text/x-csharp
+		$2.scope = text/x-csharp
+		$0.TextStylePolicy = $3
+		$3.FileWidth = 120
+		$3.TabWidth = 4
+		$3.EolMarker = Unix
+		$3.inheritsSet = Mono
+		$3.inheritsScope = text/plain
+		$3.scope = text/plain
+	EndGlobalSection
+																																																									GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+		Policies = $0
+		$0.TextStylePolicy = $1
+		$1.inheritsSet = null
+		$1.scope = text/x-csharp
+		$0.CSharpFormattingPolicy = $2
+		$2.inheritsSet = Mono
+		$2.inheritsScope = text/x-csharp
+		$2.scope = text/x-csharp
+		$0.TextStylePolicy = $3
+		$3.FileWidth = 120
+		$3.TabWidth = 4
+		$3.EolMarker = Unix
+		$3.inheritsSet = Mono
+		$3.inheritsScope = text/plain
+		$3.scope = text/plain
 	EndGlobalSection
 																																																																					GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
@@ -56,62 +97,3 @@ Global
 	EndGlobalSection
 
 EndGlobal
-=======
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2008
-
-Project("{11627652-AF6B-C11A-EFE6-8E29547110CC}") = "Unity App", "Assembly-CSharp.csproj", "{1B48C178-8603-8B63-DB04-6A75EE4959E8}"
-EndProject
-Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1B48C178-8603-8B63-DB04-6A75EE4959E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1B48C178-8603-8B63-DB04-6A75EE4959E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1B48C178-8603-8B63-DB04-6A75EE4959E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1B48C178-8603-8B63-DB04-6A75EE4959E8}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-																																																																					GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Assembly-CSharp.csproj
-		Policies = $0
-		$0.TextStylePolicy = $1
-		$1.inheritsSet = null
-		$1.scope = text/x-csharp
-		$0.CSharpFormattingPolicy = $2
-		$2.inheritsSet = Mono
-		$2.inheritsScope = text/x-csharp
-		$2.scope = text/x-csharp
-		$0.TextStylePolicy = $3
-		$3.FileWidth = 120
-		$3.TabWidth = 4
-		$3.EolMarker = Unix
-		$3.inheritsSet = Mono
-		$3.inheritsScope = text/plain
-		$3.scope = text/plain
-	EndGlobalSection
-																																																									GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Assembly-CSharp.csproj
-		Policies = $0
-		$0.TextStylePolicy = $1
-		$1.inheritsSet = null
-		$1.scope = text/x-csharp
-		$0.CSharpFormattingPolicy = $2
-		$2.inheritsSet = Mono
-		$2.inheritsScope = text/x-csharp
-		$2.scope = text/x-csharp
-		$0.TextStylePolicy = $3
-		$3.FileWidth = 120
-		$3.TabWidth = 4
-		$3.EolMarker = Unix
-		$3.inheritsSet = Mono
-		$3.inheritsScope = text/plain
-		$3.scope = text/plain
-	EndGlobalSection
-
-EndGlobal
->>>>>>> FETCH_HEAD
