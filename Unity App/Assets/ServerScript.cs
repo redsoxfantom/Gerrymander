@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Threading;
 using System.Net.Sockets;
+using System.Net;
 using System.IO;
 using System.Collections.Generic;
 using System.Text;
@@ -25,10 +26,6 @@ public class ServerScript : MonoBehaviour
 	void OnGUI()
 	{
 		GUI.Label (new Rect (10, 10, 300, 20), (outStr));
-		if(GUI.Button (new Rect (10, 30, 200, 20), "SERVER OFF"))
-		{
-			StopListening();
-		}
 	}
 
 	void Start()
@@ -58,7 +55,7 @@ public class ServerScript : MonoBehaviour
 	{
 		try
 		{
-			tcp_Listener = new TcpListener(port);
+			tcp_Listener = new TcpListener(IPAddress.Any, port);
 			tcp_Listener.Start();
 			while (running)
 			{
@@ -81,9 +78,8 @@ public class ServerScript : MonoBehaviour
 		StopListening ();
 	}
 
-	public void StopListening()
+	void StopListening()
 	{
-		Debug.Log ("StopListening");
 		foreach(Client c in arrReader)
 		{
 			Debug.Log("CLOSING CLIENT "+c);
