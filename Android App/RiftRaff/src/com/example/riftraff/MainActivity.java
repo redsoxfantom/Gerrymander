@@ -30,7 +30,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 	private Socket socket;
 
 	private static final int SERVERPORT = 12102;
-	private static final String SERVER_IP = "153.104.40.177";
+	private static final String SERVER_IP = "10.0.0.11";
 
 	final float alpha = 0.8f; // User configurable
 
