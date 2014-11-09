@@ -25,6 +25,10 @@ public class ServerScript : MonoBehaviour
 	void OnGUI()
 	{
 		GUI.Label (new Rect (10, 10, 300, 20), (outStr));
+		if(GUI.Button (new Rect (10, 30, 200, 20), "SERVER OFF"))
+		{
+			StopListening();
+		}
 	}
 
 	void Start()
@@ -66,9 +70,6 @@ public class ServerScript : MonoBehaviour
 		catch (ThreadAbortException)
 		{
 			Debug.Log("exception");
-		}
-		finally
-		{
 			running = false;
 			tcp_Listener.Stop();
 		}
@@ -76,17 +77,20 @@ public class ServerScript : MonoBehaviour
 
 	void OnApplicationQuit()
 	{
+		Debug.Log ("ShuttingDown");
 		StopListening ();
 	}
 
 	public void StopListening()
 	{
+		Debug.Log ("StopListening");
 		foreach(Client c in arrReader)
 		{
+			Debug.Log("CLOSING CLIENT "+c);
 			c.CloseConnection();
 		}
+		tcp_Listener.Stop();
 		running = false;
-		mThread.Join (500);
 		mThread.Abort ();
 	}
 }
@@ -94,6 +98,7 @@ public class ServerScript : MonoBehaviour
 
 public class Client
 {
+	private TcpClient client;
 	private Thread tread;
 	private StreamReader streamReader;
 	private bool running = true;
@@ -103,6 +108,7 @@ public class Client
 
 	public Client (TcpClient client , OnReceiveMessage onReceiveMessage, OnDisconnect onDisconnect)
 	{
+		this.client = client;
 		this.onReceiveMessage = onReceiveMessage;
 		this.onDisconnect = onDisconnect;
 		ns = client.GetStream();
@@ -115,6 +121,7 @@ public class Client
 	public void CloseConnection()
 	{
 		tread.Abort ();
+		client.Close ();
 	}
 
 	private void StartTread()
@@ -124,7 +131,7 @@ public class Client
 			while(running)
 			{
 				string cmsg = streamReader.ReadLine();
-				Debug.Log(cmsg);
+				//Debug.Log(cmsg);
 				onReceiveMessage(cmsg);
 			}
 		}
