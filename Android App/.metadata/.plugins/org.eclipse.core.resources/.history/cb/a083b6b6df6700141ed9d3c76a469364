@@ -32,13 +32,12 @@ public class MainActivity extends Activity implements SensorEventListener {
 	private static final int SERVERPORT = 12102;
 	private static final String SERVER_IP = "10.0.0.9";
 
-	final float alpha = 0.03f; // User configurable
+	final float alpha = 0.8f; // User configurable
 
 	SensorManager sensorManager = null;
 
 	public long lastTime = 0;
 	public double[] velocity = new double[3];
-	public double[] position = new double[3];
 
 	// for accelerometer values
 	TextView outputX;
@@ -142,20 +141,19 @@ public class MainActivity extends Activity implements SensorEventListener {
 			// if (isDamp(event)) {
 			switch (event.sensor.getType()) {
 			case Sensor.TYPE_LINEAR_ACCELERATION:
-				position = getPos(data);
-				if (damp(position)) {
-					outputX.setText(Double.toString(position[0]));
-					outputY.setText(Double.toString(position[1]));
-					outputZ.setText(Double.toString(position[2]));
-					 composeMessage(data, "ACCEL");
-				}
+				double[] data1 = getPos(data);
+				outputX.setText(Double.toString(data1[0]));
+				outputY.setText(Double.toString(data1[1]));
+	//			outputZ.setText(Float.toString(data1[2]));
+
+	//			composeMessage(data, "ACCEL");
 				break;
 
 			case Sensor.TYPE_ORIENTATION:
 				outputX2.setText(Float.toString(data[1]));
 				outputY2.setText(Float.toString(data[0]));
 				outputZ2.setText(Float.toString(data[2]));
-				 composeMessage(data, "ROT");
+			//	composeMessage(data, "ROT");
 				break;
 			}
 			// }
@@ -164,23 +162,13 @@ public class MainActivity extends Activity implements SensorEventListener {
 
 	}
 
-	public boolean damp(double[] newPos) {
-		for (int i = 0; i < newPos.length; i++) {
-			if (alpha < newPos[i]) {
-				return true;
-			}
-		}
-		return false;
-	}
-
 	public double[] getPos(float[] data) {
-		double delta = (System.currentTimeMillis() / 1000) - (lastTime / 1000);
+		double delta = (System.currentTimeMillis() / 1000) -  (lastTime / 1000);
 		lastTime = System.currentTimeMillis();
-
+		
 		double[] res = new double[data.length];
-
-		for (int i = 0; i < data.length; i++) {
-
+		
+		for(int i =0; i<data.length; i++) {
 			res[i] = 0.5 * data[i] * Math.pow(delta, 2);
 		}
 		return res;

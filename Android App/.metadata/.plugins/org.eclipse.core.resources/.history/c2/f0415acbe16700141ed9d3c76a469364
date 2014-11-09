@@ -32,7 +32,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 	private static final int SERVERPORT = 12102;
 	private static final String SERVER_IP = "10.0.0.9";
 
-	final float alpha = 0.03f; // User configurable
+	final float alpha = 0.05f; // User configurable
 
 	SensorManager sensorManager = null;
 
@@ -147,8 +147,8 @@ public class MainActivity extends Activity implements SensorEventListener {
 					outputX.setText(Double.toString(position[0]));
 					outputY.setText(Double.toString(position[1]));
 					outputZ.setText(Double.toString(position[2]));
-					 composeMessage(data, "ACCEL");
 				}
+				 composeMessage(data, "ACCEL");
 				break;
 
 			case Sensor.TYPE_ORIENTATION:
