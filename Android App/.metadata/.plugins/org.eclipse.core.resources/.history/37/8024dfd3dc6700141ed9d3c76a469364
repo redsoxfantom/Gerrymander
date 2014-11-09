@@ -141,8 +141,10 @@ public class MainActivity extends Activity implements SensorEventListener {
 			// if (isDamp(event)) {
 			switch (event.sensor.getType()) {
 			case Sensor.TYPE_LINEAR_ACCELERATION:
-				outputX.setText(Double.toString(data[0]));
-				outputY.setText(Double.toString(data[1]));
+				double[] data1 = cleanLinearData(data);
+				getVelocity(data);
+				outputX.setText(Double.toString(data1[0] * velocity[0]));
+				outputY.setText(Double.toString(data1[1] * velocity[1]));
 	//			outputZ.setText(Float.toString(data[2]));
 
 	//			composeMessage(data, "ACCEL");
@@ -161,8 +163,58 @@ public class MainActivity extends Activity implements SensorEventListener {
 
 	}
 
+	public boolean isDamp(SensorEvent event) {
+		boolean res = false;
+		float val = 0.8f;
+		if ((event.values[0] > val) || (event.values[1] > val)
+				|| (event.values[2] > val)) {
+			res = true;
+		}
+		return res;
+	}
+
+	// Deprecated before final use is ironed out... sad
+	public float clean(float num) {
+		float res = 0;
+
+		return res;
+	}
+
+	public double[] cleanLinearData(float[] values) {
+		double[] res = new double[3];
+
+		for (int i = 0; i < res.length; i++) {
+
+			outputZ.setText(Double.toString(Math.pow(getDelta(), 2)));
+			res[i] = ((0.5f) * values[i] * Math.pow(getDelta(), 2));
+		}
+		return res;
+	}
+	
+	public void getVelocity(double[] acceleration) {
+		
+		for(int i =0; i<acceleration.length; i++) {
+			velocity[i] += velocity[i] + (lastTime * acceleration[i]); 
+		}
+	}
+
+	public double getDelta() {
+		double deltaTime = 0;
+		long currTime = System.nanoTime();
+		if (lastTime == 0) {
+			lastTime = currTime;
+			return 0;
+		} else {
+			deltaTime = currTime - lastTime;
+			lastTime = currTime;
+			//outputZ.setText(Double.toString(deltaTime * 0.000000001));
+		}
+		
+		return deltaTime * 0.000000001;
+	}
 
 	// SensorEvent event
+
 	public void composeMessage(float[] values, String type) {
 		String res = "";
 		if (type.equals("ACCEL")) {
