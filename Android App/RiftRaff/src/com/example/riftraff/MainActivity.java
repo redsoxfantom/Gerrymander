@@ -32,6 +32,8 @@ public class MainActivity extends Activity implements SensorEventListener {
 	private static final int SERVERPORT = 12102;
 	private static final String SERVER_IP = "153.104.40.177";
 
+	final float alpha = 0.8f; // User configurable
+
 	SensorManager sensorManager = null;
 
 	// for accelerometer values
@@ -64,21 +66,25 @@ public class MainActivity extends Activity implements SensorEventListener {
 	@Override
 	protected void onResume() {
 		super.onResume();
+
+		sensorManager
+				.registerListener(this, sensorManager
+						.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION),
+						sensorManager.SENSOR_DELAY_NORMAL);
+
 		sensorManager.registerListener(this,
-				sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
-				sensorManager.SENSOR_DELAY_NORMAL);
-		sensorManager.registerListener(this,
-				sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE),
+				sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),
 				sensorManager.SENSOR_DELAY_NORMAL);
 	}
 
 	@Override
 	protected void onStop() {
 		super.onStop();
+		sensorManager
+				.unregisterListener(this, sensorManager
+						.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION));
 		sensorManager.unregisterListener(this,
-				sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
-		sensorManager.unregisterListener(this,
-				sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE));
+				sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION));
 	}
 
 	@Override
@@ -126,27 +132,27 @@ public class MainActivity extends Activity implements SensorEventListener {
 
 	@Override
 	public void onSensorChanged(SensorEvent event) {
+		float[] data = event.values;
 		synchronized (this) {
-			//if (isDamp(event)) {
-				switch (event.sensor.getType()) {
-				case Sensor.TYPE_ACCELEROMETER:
-					/*
-					 * outputX.setText(Float.toString(event.values[0]));
-					 * outputY.setText(Float.toString(event.values[1]));
-					 * outputZ.setText(Float.toString(event.values[2]));
-					 */
-					break;
-				case Sensor.TYPE_GYROSCOPE:
+			// if (isDamp(event)) {
+			switch (event.sensor.getType()) {
+			case Sensor.TYPE_LINEAR_ACCELERATION:
+				outputX.setText(Float.toString(data[0]));
+				outputY.setText(Float.toString(data[1]));
+				outputZ.setText(Float.toString(data[2]));
 
-					outputX2.setText(Float.toString(event.values[0]));
-					outputY2.setText(Float.toString(event.values[1]));
-					outputZ2.setText(Float.toString(event.values[2]));
+				composeMessage(data, "ACCEL");
+				break;
 
-					composeMessage(event);
-					break;
+			case Sensor.TYPE_ORIENTATION:
+				outputX2.setText(Float.toString(data[1]));
+				outputY2.setText(Float.toString(data[0]));
+				outputZ2.setText(Float.toString(data[2]));
+				composeMessage(data, "ROT");
+				break;
+			}
+			// }
 
-				}
-			//}
 		}
 
 	}
@@ -161,15 +167,32 @@ public class MainActivity extends Activity implements SensorEventListener {
 		return res;
 	}
 
-	public void composeMessage(SensorEvent event) {
-		String res = "ROTX:" + Float.toString(event.values[0]) + ",ROTY:"
-				+ Float.toString(event.values[1]) + ",ROTZ:"
-				+ Float.toString(event.values[2]) + "\r\n";
+	// Deprecated before final use is ironed out... sad
+	public float clean(float num) {
+		float res = 0;
 
+		return res;
+	}
+
+	// SensorEvent event
+
+	public void composeMessage(float[] values, String type) {
+		String res = "";
+		if (type.equals("ACCEL")) {
+			res = type + ":" + Float.toString(values[0]) + ","
+					+ Float.toString(values[1]) + ","
+					+ Float.toString(values[2]);
+		} else if (type.equals("ROT")) {
+			res = type + ":" + Float.toString(values[1]) + ","
+					+ Float.toString(values[0]) + ","
+					+ Float.toString(values[2]);
+		} 
 		try {
 			PrintWriter out = new PrintWriter(new BufferedWriter(
 					new OutputStreamWriter(socket.getOutputStream())), true);
 			out.println(res);
+			// out.flush();
+			// out.print(res);
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -177,7 +200,6 @@ public class MainActivity extends Activity implements SensorEventListener {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	public class ClientThread implements Runnable {
