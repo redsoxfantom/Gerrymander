@@ -2,9 +2,9 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\ServerScript.cs">
     <Files>
-      <File FileName="Assets\Position.cs" Line="36" Column="16" />
+      <File FileName="Assets\ServerScript.cs" Line="45" Column="3" />
+      <File FileName="Assets\Position.cs" Line="1" Column="1" />
       <File FileName="Assets\CubeScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\ServerScript.cs" Line="97" Column="4" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

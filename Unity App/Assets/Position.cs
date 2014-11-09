@@ -1,5 +1,6 @@
 ﻿public class Position 
 {
+	//[0] = x, [1] = y, [2] = z
 	public float[] rotations { get; set;}
 	public float[] accelerations{ get; set; }
 
@@ -11,31 +12,24 @@
 
 	public void parseMessage(string message)
 	{
-		char[] delims = {','};
-		string[] splitstrings = message.Split (delims);
+		char[] delims = {':'};
+		char[] delims2 = {','};
+		string[] keyVal = message.Split (delims);
+		string[] XYZ = keyVal [1].Split (delims2);
 
-		for(int idx = 0; idx < splitstrings.Length; idx++)
+		float[] newVals = new float[3];
+
+		newVals [0] = float.Parse (XYZ [0]);
+		newVals [1] = float.Parse (XYZ [1]);
+		newVals [2] = float.Parse (XYZ [2]);
+
+		if(keyVal[0].Equals("ACCEL"))
 		{
-			char[] delims2 = {':'};
-			string[] keyVal = splitstrings[idx].Split(delims2);
-			switch(keyVal[0])
-			{
-			case "ACCELX":
-				break;
-			case "ACCELY":
-				break;
-			case "ACCELZ":
-				break;
-			case "ROTX":
-				rotations[0] = float.Parse(keyVal[1]);
-				break;
-			case "ROTY":
-				rotations[1] = float.Parse(keyVal[1]);
-				break;
-			case "ROTZ":
-				rotations[1] = float.Parse(keyVal[1]);
-				break;
-			}
+			//Finish later
+		}
+		else if(keyVal[0].Equals("ROT"))
+		{
+			rotations = newVals;
 		}
 	}
 }

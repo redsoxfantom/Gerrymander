@@ -4,12 +4,15 @@ using System.Net.Sockets;
 using System.IO;
 using System.Collections.Generic;
 using System.Text;
+
+public delegate void OnDisconnect(Client client);
 public delegate void OnReceiveMessage(string message);
 
 
 public class ServerScript : MonoBehaviour
 {
 	private OnReceiveMessage onReceiveMessage;
+	private OnDisconnect onDisconnect;
 	private bool running;
 	public int port;
 	private Thread mThread;
@@ -21,13 +24,14 @@ public class ServerScript : MonoBehaviour
 	
 	void OnGUI()
 	{
-		GUI.Label (new Rect (10, 10, 200, 20), ("TEST" + outStr));
+		GUI.Label (new Rect (10, 10, 300, 20), (outStr));
 	}
 
 	void Start()
 	{
 		p = new Position ();
-		this.onReceiveMessage = onReceiveMessageHandler;
+		onReceiveMessage = onReceiveMessageHandler;
+		onDisconnect = onDisconnectHandler;
 		running = true;
 		arrReader = new List<Client>();
 		ThreadStart ts = new ThreadStart(ClientCheck );
@@ -40,6 +44,11 @@ public class ServerScript : MonoBehaviour
 		outStr = message;
 		p.parseMessage (message);
 	}
+
+	void onDisconnectHandler(Client client)
+	{
+		arrReader.Remove (client);
+	}
 	
 	void ClientCheck()
 	{
@@ -51,7 +60,7 @@ public class ServerScript : MonoBehaviour
 			{
 				TcpClient client = tcp_Listener.AcceptTcpClient();
 				Debug.Log("accepted");
-				arrReader.Add(new Client(client , onReceiveMessage));
+				arrReader.Add(new Client(client , onReceiveMessage, onDisconnect));
 			}
 		}
 		catch (ThreadAbortException)
@@ -65,10 +74,20 @@ public class ServerScript : MonoBehaviour
 		}
 	}
 
+	void OnApplicationQuit()
+	{
+		StopListening ();
+	}
+
 	public void StopListening()
 	{
+		foreach(Client c in arrReader)
+		{
+			c.CloseConnection();
+		}
 		running = false;
-		mThread.Join(500);
+		mThread.Join (500);
+		mThread.Abort ();
 	}
 }
 
@@ -78,12 +97,14 @@ public class Client
 	private Thread tread;
 	private StreamReader streamReader;
 	private bool running = true;
+	private OnDisconnect onDisconnect;
 	private OnReceiveMessage onReceiveMessage;
 	private NetworkStream ns;
 
-	public Client (TcpClient client , OnReceiveMessage onReceiveMessage)
+	public Client (TcpClient client , OnReceiveMessage onReceiveMessage, OnDisconnect onDisconnect)
 	{
 		this.onReceiveMessage = onReceiveMessage;
+		this.onDisconnect = onDisconnect;
 		ns = client.GetStream();
 		streamReader = new StreamReader(ns);
 		ThreadStart ts = new ThreadStart(StartTread);
@@ -91,13 +112,26 @@ public class Client
 		tread.Start();
 	}
 
+	public void CloseConnection()
+	{
+		tread.Abort ();
+	}
+
 	private void StartTread()
 	{
-		while(running)
+		try
 		{
-			string cmsg = streamReader.ReadLine();
-			Debug.Log(cmsg);
-			onReceiveMessage(cmsg);
+			while(running)
+			{
+				string cmsg = streamReader.ReadLine();
+				Debug.Log(cmsg);
+				onReceiveMessage(cmsg);
+			}
+		}
+		catch(IOException e) // Client disconnected
+		{
+			Debug.Log(e);
+			onDisconnect(this);
 		}
 	}
 }
