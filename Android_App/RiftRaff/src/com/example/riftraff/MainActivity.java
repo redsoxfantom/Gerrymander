@@ -37,6 +37,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 	SensorManager sensorManager = null;
 
 	public long lastTime = 0;
+	
 	public double[] velocity = new double[3];
 	public double[] position = new double[3];
 
@@ -74,11 +75,11 @@ public class MainActivity extends Activity implements SensorEventListener {
 		sensorManager
 				.registerListener(this, sensorManager
 						.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION),
-						sensorManager.SENSOR_DELAY_NORMAL);
+						sensorManager.SENSOR_DELAY_FASTEST);
 
 		sensorManager.registerListener(this,
 				sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),
-				sensorManager.SENSOR_DELAY_NORMAL);
+				sensorManager.SENSOR_DELAY_FASTEST);
 	}
 
 	@Override
