@@ -32,11 +32,13 @@ public class MainActivity extends Activity implements SensorEventListener {
 	private static final int SERVERPORT = 12102;
 	private static final String SERVER_IP = "10.0.0.9";
 
-	final float alpha = 0.8f; // User configurable
+	final float alpha = 0.03f; // User configurable
 
 	SensorManager sensorManager = null;
 
 	public long lastTime = 0;
+	public double[] velocity = new double[3];
+	public double[] position = new double[3];
 
 	// for accelerometer values
 	TextView outputX;
@@ -135,23 +137,25 @@ public class MainActivity extends Activity implements SensorEventListener {
 	@Override
 	public void onSensorChanged(SensorEvent event) {
 		float[] data = event.values;
+
 		synchronized (this) {
 			// if (isDamp(event)) {
 			switch (event.sensor.getType()) {
 			case Sensor.TYPE_LINEAR_ACCELERATION:
-				data = cleanLinearData(event);
-				outputX.setText(Float.toString(data[0]));
-				outputY.setText(Float.toString(data[1]));
-	//			outputZ.setText(Float.toString(data[2]));
-
-	//			composeMessage(data, "ACCEL");
+				position = getPos(data);
+				if (damp(position)) {
+					outputX.setText(Double.toString(position[0]));
+					outputY.setText(Double.toString(position[1]));
+					outputZ.setText(Double.toString(position[2]));
+					 composeMessage(data, "ACCEL");
+				}
 				break;
 
 			case Sensor.TYPE_ORIENTATION:
 				outputX2.setText(Float.toString(data[1]));
 				outputY2.setText(Float.toString(data[0]));
 				outputZ2.setText(Float.toString(data[2]));
-			//	composeMessage(data, "ROT");
+				 composeMessage(data, "ROT");
 				break;
 			}
 			// }
@@ -160,48 +164,29 @@ public class MainActivity extends Activity implements SensorEventListener {
 
 	}
 
-	public boolean isDamp(SensorEvent event) {
-		boolean res = false;
-		float val = 0.8f;
-		if ((event.values[0] > val) || (event.values[1] > val)
-				|| (event.values[2] > val)) {
-			res = true;
+	public boolean damp(double[] newPos) {
+		for (int i = 0; i < newPos.length; i++) {
+			if (alpha < newPos[i]) {
+				return true;
+			}
 		}
-		return res;
+		return false;
 	}
 
-	// Deprecated before final use is ironed out... sad
-	public float clean(float num) {
-		float res = 0;
+	public double[] getPos(float[] data) {
+		double delta = (System.currentTimeMillis() / 1000) - (lastTime / 1000);
+		lastTime = System.currentTimeMillis();
 
-		return res;
-	}
+		double[] res = new double[data.length];
 
-	public float[] cleanLinearData(SensorEvent event) {
-		float[] res = new float[3];
+		for (int i = 0; i < data.length; i++) {
 
-		for (int i = 0; i < res.length; i++) {
-			res[i] = (float) ((1 / 2) * (event.values[i] * Math.pow(getDelta(), 2)));
+			res[i] = 0.5 * data[i] * Math.pow(delta, 2);
 		}
 		return res;
-	}
-
-	public double getDelta() {
-		long deltaTime = 0;
-		long currTime = System.currentTimeMillis();
-		if (lastTime == 0) {
-			lastTime = currTime;
-			return 0;
-		} else {
-			deltaTime = currTime - lastTime;
-			lastTime = currTime;
-			outputZ.setText(Float.toString(lastTime));
-		}
-		return deltaTime;
 	}
 
 	// SensorEvent event
-
 	public void composeMessage(float[] values, String type) {
 		String res = "";
 		if (type.equals("ACCEL")) {
