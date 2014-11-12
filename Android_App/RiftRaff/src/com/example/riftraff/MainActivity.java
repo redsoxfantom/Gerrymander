@@ -34,7 +34,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 	private Socket socket;
 
 	private static final int SERVERPORT = 12102;
-	private static String serverIP = "";
+	private static String serverIP = "10.0.0.9";
 
 	final float alpha = 0.03f; // User configurable
 
@@ -265,15 +265,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 				InetAddress serverAddr = InetAddress.getByName(serverIP);
 				socket = new Socket(serverAddr, SERVERPORT);
 			} 
-			catch (Exception e) {} 
-			/*
-			try {
-				socket.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			*/
+			catch (Exception e) {}
 		}
 	}
 }
