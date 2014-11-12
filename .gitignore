@@ -19,6 +19,7 @@ ExportedObj/
 *.user
 *.unityproj
 *.booproj
+*.pdb
  
 # ============ #
 # OS generated #
@@ -31,7 +32,6 @@ ExportedObj/
 Icon?
 ehthumbs.db
 Thumbs.db
-*.exe
 
 #Android
 *.pydevproject
