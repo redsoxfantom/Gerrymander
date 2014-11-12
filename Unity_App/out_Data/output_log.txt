@@ -6,32 +6,25 @@ Direct3D:
     Vendor:   NVIDIA
     VRAM:     1992 MB
 Begin MonoManager ReloadAssembly
-Platform assembly: C:\Users\Tom\Documents\Projects\Gerrymander\Unity App\out_Data\Managed\UnityEngine.dll (this message is harmless)
-Loading C:\Users\Tom\Documents\Projects\Gerrymander\Unity App\out_Data\Managed\UnityEngine.dll into Unity Child Domain
-Platform assembly: C:\Users\Tom\Documents\Projects\Gerrymander\Unity App\out_Data\Managed\Assembly-CSharp.dll (this message is harmless)
-Loading C:\Users\Tom\Documents\Projects\Gerrymander\Unity App\out_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
-- Completed reload, in  0.041 seconds
+Platform assembly: C:\Users\Tom\Documents\Projects\Gerrymander\Unity_App\out_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Tom\Documents\Projects\Gerrymander\Unity_App\out_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Tom\Documents\Projects\Gerrymander\Unity_App\out_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Tom\Documents\Projects\Gerrymander\Unity_App\out_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+- Completed reload, in  0.042 seconds
 <RI> Initializing input.
 <RI> Input initialized.
 desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
-Platform assembly: C:\Users\Tom\Documents\Projects\Gerrymander\Unity App\out_Data\Managed\System.dll (this message is harmless)
-Platform assembly: C:\Users\Tom\Documents\Projects\Gerrymander\Unity App\out_Data\Managed\System.Core.dll (this message is harmless)
-accepted
+Platform assembly: C:\Users\Tom\Documents\Projects\Gerrymander\Unity_App\out_Data\Managed\System.dll (this message is harmless)
+Platform assembly: C:\Users\Tom\Documents\Projects\Gerrymander\Unity_App\out_Data\Managed\System.Core.dll (this message is harmless)
+Profiler is only supported with Pro License
  
-(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/Runtime/Profiler/ProfilerConnection.cpp Line: 218)
 
 ShuttingDown
 UnityEngine.Debug:Internal_Log(Int32, String, Object)
 UnityEngine.Debug:Log(Object)
-ServerScript:OnApplicationQuit() (at C:\Users\Tom\Documents\Projects\Gerrymander\Unity App\Assets\ServerScript.cs:77)
+ServerScript:OnApplicationQuit() (at C:\Users\Tom\Documents\Projects\Gerrymander\Unity_App\Assets\ServerScript.cs:80)
  
 (Filename: C Line: 0)
 
-CLOSING CLIENT Client
-UnityEngine.Debug:Internal_Log(Int32, String, Object)
-UnityEngine.Debug:Log(Object)
-ServerScript:StopListening() (at C:\Users\Tom\Documents\Projects\Gerrymander\Unity App\Assets\ServerScript.cs:85)
-ServerScript:OnApplicationQuit() (at C:\Users\Tom\Documents\Projects\Gerrymander\Unity App\Assets\ServerScript.cs:78)
- 
-(Filename: C Line: 0)
-
+Waiting for finish

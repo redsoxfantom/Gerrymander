@@ -5,6 +5,7 @@ using System.Net;
 using System.IO;
 using System.Collections.Generic;
 using System.Text;
+using System;
 
 public delegate void OnDisconnect(Client client);
 public delegate void OnReceiveMessage(string message);
@@ -30,6 +31,8 @@ public class ServerScript : MonoBehaviour
 
 	void Start()
 	{
+		Application.targetFrameRate = -1;
+
 		p = new Position ();
 		onReceiveMessage = onReceiveMessageHandler;
 		onDisconnect = onDisconnectHandler;

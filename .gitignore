@@ -34,8 +34,6 @@ Thumbs.db
 
 #Android
 *.pydevproject
-.project
-.metadata
 bin/**
 tmp/**
 tmp/**/*

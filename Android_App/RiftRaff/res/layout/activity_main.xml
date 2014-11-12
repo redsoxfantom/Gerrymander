@@ -140,6 +140,28 @@
             android:layout_alignLeft="@+id/yBox02"
             android:text="z.out" />
 
+        <EditText
+            android:id="@+id/addressSpace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/orientView"
+            android:layout_below="@+id/zView02"
+            android:layout_marginTop="21dp"
+            android:ems="10"
+            android:text="type ip" >
+
+            <requestFocus />
+        </EditText>
+
+        <Switch
+            android:id="@+id/switchState"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/addressSpace"
+            android:layout_marginRight="31dp"
+            android:layout_marginTop="23dp" />
+
     </RelativeLayout>
 
 </FrameLayout>

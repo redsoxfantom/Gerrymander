@@ -6,16 +6,19 @@ public class CubeScript : MonoBehaviour
 	public ServerScript server;
 	public Vector3 rotationDamp;
 	public Vector3 translationDamp;
+	System.Diagnostics.Stopwatch sw;
 
 	// Use this for initialization
 	void Start () 
 	{
-	
+		sw = System.Diagnostics.Stopwatch.StartNew();
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
+		double ticksSec = (double)sw.ElapsedTicks / (double)System.Diagnostics.Stopwatch.Frequency;
+		//Debug.Log (ticksSec);
 		float xrot = server.p.rotations [0];
 		float yrot = server.p.rotations [1];
 		float zrot = server.p.rotations [2];
@@ -27,5 +30,6 @@ public class CubeScript : MonoBehaviour
 		transform.localEulerAngles = Vector3.Scale(new Vector3 (xrot,yrot,zrot),rotationDamp);
 
 		transform.localPosition = Vector3.Scale(new Vector3 (xpos, ypos, zpos), translationDamp);
+		sw = System.Diagnostics.Stopwatch.StartNew();
 	}
 }
