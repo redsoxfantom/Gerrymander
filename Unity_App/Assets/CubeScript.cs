@@ -17,8 +17,6 @@ public class CubeScript : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		double ticksSec = (double)sw.ElapsedTicks / (double)System.Diagnostics.Stopwatch.Frequency;
-		//Debug.Log (ticksSec);
 		float xrot = server.p.rotations [0];
 		float yrot = server.p.rotations [1];
 		float zrot = server.p.rotations [2];
@@ -26,6 +24,8 @@ public class CubeScript : MonoBehaviour
 		float xpos = server.p.accelerations [0];
 		float ypos = server.p.accelerations [1];
 		float zpos = server.p.accelerations [2];
+
+		//Debug.Log (ticksSec + ":" + xrot);
 
 		transform.localEulerAngles = Vector3.Scale(new Vector3 (xrot,yrot,zrot),rotationDamp);
 

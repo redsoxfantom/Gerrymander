@@ -104,9 +104,11 @@ public class Client
 	private OnDisconnect onDisconnect;
 	private OnReceiveMessage onReceiveMessage;
 	private NetworkStream ns;
+	System.Diagnostics.Stopwatch sw;
 
 	public Client (TcpClient client , OnReceiveMessage onReceiveMessage, OnDisconnect onDisconnect)
 	{
+		sw = System.Diagnostics.Stopwatch.StartNew();
 		this.client = client;
 		this.onReceiveMessage = onReceiveMessage;
 		this.onDisconnect = onDisconnect;
@@ -129,8 +131,12 @@ public class Client
 		{
 			while(running)
 			{
+				double first = (double)sw.ElapsedTicks / (double)System.Diagnostics.Stopwatch.Frequency;
 				string cmsg = streamReader.ReadLine();
-				//Debug.Log(cmsg);
+				double last = (double)sw.ElapsedTicks / (double)System.Diagnostics.Stopwatch.Frequency;
+				double total = last-first;
+
+				Debug.Log("It took "+total+" seconds to read " + cmsg);
 				onReceiveMessage(cmsg);
 			}
 		}
